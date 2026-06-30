@@ -1,0 +1,131 @@
+﻿Assignment 1
+
+
+public static Integer rowRotation( Integer examWeek, String[][] matrix ){
+
+
+        //For this task you don't need to create new Matrix
+            //You can create 1D array if you need (but you can do it without creating any 1D array as well)
+        //After rotation the Matrix should be printed inside the method
+        //Only the integer row number is to be returned
+
+
+        //TO DO
+        int position = 6;
+        for(int i=0; i<examWeek-1; i++){
+            for(int j=matrix.length-1; j>0; j--){
+                String temp [] = matrix[j];
+                matrix[j] = matrix[j-1];
+                matrix[j-1]  = temp;
+            }
+            if(position == 6){
+                position = 1;
+            }else{
+                position++;
+            }
+        }
+        Arr.print2D(matrix);
+
+
+        return position;
+    }
+
+
+Assignment 2
+
+
+public static Integer[][] compressMatrix( Integer[][] matrix ){
+
+
+        //For this task you'll need to create new 2D array
+        
+        //TO DO
+        Integer[][] new_m = new Integer [matrix.length/2][matrix.length/2];
+        Integer count = 0;
+        for(int col=0; col<matrix.length; col+=2){
+            for(int row=0; row<matrix[0].length; row+=2){
+                new_m[col/2][row/2] = matrix[col][row] + matrix[col][row+1] + matrix[col+1][row] + matrix[col+1][row+1];
+
+
+            }
+        }
+        //remove the line below and return the newly created Compressed 2D matrix
+        return new_m;
+    }
+
+
+Assignment 3
+
+
+public static void playGame( Integer[][] arena ){
+
+
+        //For this task you don't need to create any new 2D array
+        //just print the result inside the function
+        
+        //TO DO
+        int count = 0;
+        for(int col=0; col<arena.length; col++){
+            for(int row=0; row<arena[0].length; row++){
+                if(arena[col][row]!=0 && arena[col][row]%50==0){
+                    if(col-1>=0 && arena[col-1][row] == 2 ){
+                        count+=2;
+                    }if(col+1<arena.length && arena[col+1][row] == 2 ){
+                        count+=2;
+                    }if(row-1>=0 && arena[col][row-1] == 2 ){
+                        count+=2;
+                    }if(row+1<arena[0].length && arena[col][row+1] == 2 ){
+                        count+=2;
+                    }
+                }
+            }
+        }
+            if(count>=10){
+                System.out.print("Points Gained: "+count+". Your team has survived the game.\n");
+            }else{
+               System.out.print("Points Gained: "+count+". Your team is out.\n"); 
+            }
+    }
+
+
+Assignment 4
+
+
+public static void rotateSecret( Character[][] board ){
+
+
+        //Print the message inside of this method
+        //TO DO
+        int tlayer = board.length/2;
+        for(int layer = 0; layer<tlayer; layer++){
+            for(int inc = 0; inc<tlayer-layer; inc++){
+                layer(layer,board);
+            }
+        }
+        for(int col=0; col<board.length; col++){
+            for(int row=0; row<board[0].length; row++){
+                System.out.print(board[col][row]);
+            }
+        }
+        System.out.println();
+        
+    }
+    public static void layer(int layer, Character[][] board){
+        Character temp = board[layer][layer];
+        int start = layer;
+        int end = board.length - layer - 1;
+        
+        for(int down=start; down<end; down++) {
+            board[down][start]=board[down+1][start];
+        }
+        for(int right=start; right<end; right++) {
+            board[end][right]=board[end][right+1];
+        }
+        for(int up=end; up>start; up--) {
+            board[up][end]=board[up-1][end];
+        }
+        for(int left=end; left>start+1; left--) {
+            board[start][left]=board[start][left-1];
+        }
+         board[layer][layer+1]=temp;
+    }
